@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Concatenation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/functions.js"></script>
+	<link rel="stylesheet" href="/static/css/style.css">
+
+
+</head>
+
+<body>
+    <h1>Midjourney Multiprompt Madness</h1>
+    <form id="text-form">
+        <label for="subject">Subject:</label>
+        <input type="text" name="subject" id="subject" required><br>
+
+
+        <label for="aspect-ratio">Aspect ratio:</label>
+        <select name="aspect-ratio" id="aspect-ratio">
+            <option value="1:1">1:1</option>
+            <option value="4:5">4:5</option>
+            <option value="2:3">2:3</option>
+            <option value="3:2">3:2</option>
+			<option value="16:9">16:9</option>
+			
+        </select><br>
+
+        <div id="subsubjects">
+            <label>Sub-subjects:</label><br>
+        </div>
+		<button type="button" id="add-subsubject">Add sub-subject</button><br>
+		<br>
+		<label for="negative">Negative string:</label>
+        <input type="text" name="negative" id="negative"><br>
+		<!--<button type="submit">Submit</button>-->
+		
+		
+    </form>
+
+
+    <h2>Result:</h2>
+    <textarea id="result" readonly></textarea></br>
+    <button type="button" id="copy">Copy to clipboard</button>
+	
+	<hr>
+	<label for="saved-settings">Saved settings:</label>
+<select id="saved-settings"></select>
+<button type="button" id="save">Save</button>
+<button type="button" id="load">Load</button>
+</br></br>
+<button id="save-json">Save All Sessions as JSON</button>
+
+    <script>
+        // JavaScript/jQuery code for form handling and AJAX
+    </script>
+</body>
+</html>

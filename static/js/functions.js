@@ -55,6 +55,15 @@ $(document).ready(function () {
 		$(".word-count").each(function (index, element) {
 			$(element).text(`${data.word_counts[index]} words`);
 		});
+		
+		//Auto copy to clipboard on change and return focus
+		$("#result").select();
+        document.execCommand("copy");
+			
+		if (lastFocusedElement) {
+			lastFocusedElement.focus();
+		}	
+		
 	});
 
 	
@@ -71,40 +80,6 @@ $(document).ready(function () {
 		
 
 
-    $("#text-form").submit(function (event) {
-        event.preventDefault();
-        let formData = {
-            subject: $("#subject").val(),
-            negative: $("#negative").val(),
-            aspect_ratio: $("#aspect-ratio").val(),
-            subsubjects: []
-        };
-        $(".sub-subject").each(function (index, element) {
-            formData.subsubjects.push({
-                text: $(element).val(),
-                weight: $(`#sub-subject-${index + 1}-w`).val()
-            });
-        });
-        $.ajax({
-            type: "POST",
-            url: "/",
-            contentType: "application/json",
-            data: JSON.stringify(formData),
-            success: function (data) {
-                $("#result").val(data.result);
-                $(".word-count").each(function (index, element) {
-                    $(element).text(`${data.word_counts[index]} words`);
-                });
-            }
-        });
-		//Auto copy to clipboard on change and return focus
-		$("#result").select();
-        document.execCommand("copy");
-			
-		if (lastFocusedElement) {
-			lastFocusedElement.focus();
-		}	
-    });
 
     $("#copy").click(function () {
         $("#result").select();

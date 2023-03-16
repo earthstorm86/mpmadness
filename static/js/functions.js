@@ -28,7 +28,7 @@ $(document).ready(function () {
 		});
 
 		return {
-			"result": result.join("\n") + (negative_string) + " --ar " + aspect_ratio,
+			"result": "/imagine prompt: "+result.join("\n") + (negative_string) + " --ar " + aspect_ratio,
 			"word_counts": word_counts
 		};
 	}

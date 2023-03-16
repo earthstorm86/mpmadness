@@ -4,6 +4,65 @@ $(document).ready(function () {
     updateSavedSettingsList(savedData);
 	loadLastSavedSession();
 
+	
+	
+	
+	function processFormData(data) {
+		const subject = data.subject;
+		const negative = data.negative;
+		const aspect_ratio = data.aspect_ratio;
+		const subsubjects = data.subsubjects;
+		const negative_string = negative ? ` --no ${negative}` : "";
+
+		let result = [];
+		let word_counts = [];
+
+		subsubjects.forEach(subsubject => {
+			let text = `${subject}, ${subsubject.text}::${subsubject.weight} `;
+			let words = text.match(/\b\w+\b/g).length;
+
+			if (words <= 60) {
+				result.push(text);
+				word_counts.push(words);
+			}
+		});
+
+		return {
+			"result": result.join("\n") + (negative_string) + " --ar " + aspect_ratio,
+			"word_counts": word_counts
+		};
+	}
+
+	$("#text-form").submit(function (event) {
+		event.preventDefault();
+
+		let formData = {
+			subject: $("#subject").val(),
+			negative: $("#negative").val(),
+			aspect_ratio: $("#aspect-ratio").val(),
+			subsubjects: []
+		};
+
+		$(".sub-subject").each(function (index, element) {
+			formData.subsubjects.push({
+				text: $(element).val(),
+				weight: $(`#sub-subject-${index + 1}-w`).val()
+			});
+		});
+
+		const data = processFormData(formData);
+		$("#result").val(data.result);
+		$(".word-count").each(function (index, element) {
+			$(element).text(`${data.word_counts[index]} words`);
+		});
+	});
+
+	
+	
+	
+	
+	
+	
 	$("#subsubjects").on("click", ".remove-subsubject", function () {
 		$(this).parent().remove();
 		subsubjectCount--;

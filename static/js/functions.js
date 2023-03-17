@@ -106,7 +106,7 @@ $(document).ready(function () {
 		subsubjectCount++;
 		$("#subsubjects").append(`
 			<div>
-				<label for="sub-subject-${subsubjectCount}">Sub-subject ${subsubjectCount}:</label>
+				<label for="sub-subject-${subsubjectCount}">Sub-style ${subsubjectCount}:</label>
 				<input type="text" name="sub-subject" id="sub-subject-${subsubjectCount}" class="sub-subject" value="${text}">
 				<label for="sub-subject-${subsubjectCount}-w">Weight:</label>
 				<input type="number" name="sub-subject-w" id="sub-subject-${subsubjectCount}-w" class="sub-subject-w" value="${weight}">

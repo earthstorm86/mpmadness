@@ -75,10 +75,19 @@ $(document).ready(function () {
 	$("#subsubjects").on("click", ".remove-subsubject", function () {
 		$(this).parent().remove();
 		subsubjectCount--;
+		renumberSubsubjectLabels();
 		updateWordCountAndResult();
 	});
 		
+	function renumberSubsubjectLabels() {
+		let subsubjectLabels = $("#subsubjects label[for^='sub-subject-']");
 
+		subsubjectLabels.each(function (index, element) {
+			let newIndex = index+1;
+			$(element).attr("for", `sub-subject-${newIndex}`);
+			$(element).text(`Sub-style ${newIndex}:`);
+		});
+	}
 
 
     $("#copy").click(function () {
@@ -87,7 +96,7 @@ $(document).ready(function () {
     });
 	
 	
-	
+
 	
 	
 	
@@ -108,7 +117,7 @@ $(document).ready(function () {
 			<div>
 				<label for="sub-subject-${subsubjectCount}">Sub-style ${subsubjectCount}:</label>
 				<input type="text" name="sub-subject" id="sub-subject-${subsubjectCount}" class="sub-subject" value="${text}">
-				<label for="sub-subject-${subsubjectCount}-w">Weight:</label>
+				<label for="sub-subjectweight-${subsubjectCount}">Weight:</label>
 				<input type="number" name="sub-subject-w" id="sub-subject-${subsubjectCount}-w" class="sub-subject-w" value="${weight}">
 				<span id="word-count-${subsubjectCount}" class="word-count"></span>
 				<button type="button" class="remove-subsubject">Remove</button>
@@ -204,10 +213,23 @@ $(document).ready(function () {
 	}
 	
 	// Add click event handlers for save and load buttons
-	$("#save").click(saveToLocalStorage);
+	$("#saveAs").click(saveToLocalStorage);
 	$("#load").click(loadFromLocalStorage);
 	
-	
+	function deleteSelectedData() {
+		let savedData = JSON.parse(localStorage.getItem('savedData')) || {};
+		let settingName = $("#saved-settings").val();
+
+		if (settingName && savedData[settingName]) {
+			delete savedData[settingName];
+			localStorage.setItem('savedData', JSON.stringify(savedData));
+			updateSavedSettingsList(savedData);
+			alert(`Data for "${settingName}" has been deleted from local storage.`);
+		} else {
+			alert('No saved data found in local storage for the selected setting.');
+		}
+	}
+	$("#delete").click(deleteSelectedData);
 	
 	function saveSessionsAsJSON() {
 		const savedData = JSON.parse(localStorage.getItem('savedData')) || {};

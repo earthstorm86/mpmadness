@@ -39,7 +39,14 @@ button:hover {
     background-color: #ff9800;
 }
 
-input, select {
+input[type=checkbox]{
+	    font-size: 0.9rem;
+    padding: 0.45rem;
+    margin: 0.25rem;
+	width:10px;	
+}
+
+input[type=text], select {
     font-size: 0.9rem;
     padding: 0.45rem;
     margin: 0.25rem;
@@ -50,7 +57,7 @@ input.sub-subject-w{
     font-size: 0.9rem;
     padding: 0.45rem;
     margin: 0.25rem;
-	min-width:10%;	
+	width:50px;	
 }
 
 textarea{

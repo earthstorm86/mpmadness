@@ -11,24 +11,35 @@ $(document).ready(function () {
 		const subject = data.subject;
 		const negative = data.negative;
 		const aspect_ratio = data.aspect_ratio;
+		const stylize = data.stylize;
 		const subsubjects = data.subsubjects;
 		const negative_string = negative ? ` --no ${negative}` : "";
 
 		let result = [];
 		let word_counts = [];
 
-		subsubjects.forEach(subsubject => {
-			let text = `${subject}, ${subsubject.text}::${subsubject.weight} `;
-			let words = text.match(/\b\w+\b/g).length;
+		subsubjects.forEach((subsubject,index) => {
+			
+			const checkbox = $(`#disable-sub-subject-${index + 1}`);
 
-			if (words <= 60) {
-				result.push(text);
-				word_counts.push(words);
+			// Get the checked status (true if checked, false if not checked)
+			const isChecked = checkbox.is(':checked');
+			
+			
+			console.log(isChecked);
+			if(!isChecked){
+				let text = `${subject}, ${subsubject.text}::${subsubject.weight} `;
+				let words = text.match(/\b\w+\b/g).length;
+
+				if (words <= 60) {
+					result.push(text);
+					word_counts.push(words);
+				}
 			}
 		});
 
 		return {
-			"result": "/imagine prompt: "+result.join("\n") + (negative_string) + " --ar " + aspect_ratio,
+			"result": "/imagine prompt: "+result.join("\n") + (negative_string) + " --ar " + aspect_ratio + " --stylize "+stylize,
 			"word_counts": word_counts
 		};
 	}
@@ -40,13 +51,15 @@ $(document).ready(function () {
 			subject: $("#subject").val(),
 			negative: $("#negative").val(),
 			aspect_ratio: $("#aspect-ratio").val(),
+			stylize: $("#stylize").val(),
 			subsubjects: []
 		};
 
 		$(".sub-subject").each(function (index, element) {
 			formData.subsubjects.push({
 				text: $(element).val(),
-				weight: $(`#sub-subject-${index + 1}-w`).val()
+				weight: $(`#sub-subject-${index + 1}-w`).val(),
+				disable: $(`#disable-sub-subject-${index + 1}-w`).val()
 			});
 		});
 
@@ -117,9 +130,11 @@ $(document).ready(function () {
 			<div>
 				<label for="sub-subject-${subsubjectCount}">Sub-style ${subsubjectCount}:</label>
 				<input type="text" name="sub-subject" id="sub-subject-${subsubjectCount}" class="sub-subject" value="${text}">
+				<span id="word-count-${subsubjectCount}" class="word-count"></span>
 				<label for="sub-subjectweight-${subsubjectCount}">Weight:</label>
 				<input type="number" name="sub-subject-w" id="sub-subject-${subsubjectCount}-w" class="sub-subject-w" value="${weight}">
-				<span id="word-count-${subsubjectCount}" class="word-count"></span>
+				<label for="disable-sub-subject-${subsubjectCount}">Disable:</label>
+				<input type="checkbox" name="disable-sub-subject" id="disable-sub-subject-${subsubjectCount}" class="disable-sub-subject">
 				<button type="button" class="remove-subsubject">Remove</button>
 				<br>
 			</div>
@@ -146,6 +161,7 @@ $(document).ready(function () {
 			subject: $("#subject").val(),
 			negative: $("#negative").val(),
 			aspect_ratio: $("#aspect-ratio").val(),
+			stylize: $("#stylize").val(),
 			subsubjects: []
 		};
 		$(".sub-subject").each(function (index, element) {
@@ -178,7 +194,7 @@ $(document).ready(function () {
 			$("#subject").val(formData.subject);
 			$("#negative").val(formData.negative);
 			$("#aspect-ratio").val(formData.aspect_ratio);
-
+			$("#stylize").val(formData.stylize);
 			$("#subsubjects").empty();
 			subsubjectCount = 0;
 			formData.subsubjects.forEach(function (subsubject) {
@@ -199,7 +215,7 @@ $(document).ready(function () {
 			$("#subject").val(formData.subject);
 			$("#negative").val(formData.negative);
 			$("#aspect-ratio").val(formData.aspect_ratio);
-
+			$("#stylize").val(formData.stylize);
 			$("#subsubjects").empty();
 			subsubjectCount = 0;
 			formData.subsubjects.forEach(function (subsubject) {
@@ -265,6 +281,7 @@ $(document).ready(function () {
 		const subject = sessionData.subject;
 		const negative = sessionData.negative;
 		const aspectRatio = sessionData.aspect_ratio;
+		const stylize = sessionData.stylize;
 		const subsubjects = sessionData.subsubjects;
 		let result = "";
 
@@ -297,6 +314,8 @@ $(document).ready(function () {
 	$(document).on('keyup', 'input', function () {
 		lastFocusedElement = this;
 	});
+	
+	$("body").on("input", ".disable-sub-subject", updateWordCountAndResult);
 	
 	
 });

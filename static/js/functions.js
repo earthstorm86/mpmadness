@@ -98,7 +98,15 @@ $(document).ready(function () {
 		subsubjectLabels.each(function (index, element) {
 			let newIndex = index+1;
 			$(element).attr("for", `sub-subject-${newIndex}`);
+			$(element).attr("for", `sub-subject-${newIndex}-w`);
 			$(element).text(`Sub-style ${newIndex}:`);
+		});
+
+		
+		let subsubjectInputs = $("#subsubjects input[name^='sub-subject-w']");
+		subsubjectInputs.each(function (index, element) {
+			let newIndex = index+1;
+			$(element).attr("id", `sub-subject-${newIndex}-w`);
 		});
 	}
 
@@ -124,7 +132,7 @@ $(document).ready(function () {
 	$("body").on("keyup", "#subject, #negative, .sub-subject, .sub-subject-w", updateWordCountAndResult);
 	
 	// Move the subsubject addition code into a separate function
-	function addSubsubject(text = '', weight = '') {
+	function addSubsubject(text = '', weight = '1') {
 		subsubjectCount++;
 		$("#subsubjects").append(`
 			<div>

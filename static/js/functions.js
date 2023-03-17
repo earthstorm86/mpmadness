@@ -70,12 +70,12 @@ $(document).ready(function () {
 		});
 		
 		//Auto copy to clipboard on change and return focus
-		$("#result").select();
-        document.execCommand("copy");
+		//$("#result").select();
+        //document.execCommand("copy");
 			
-		if (lastFocusedElement) {
-			lastFocusedElement.focus();
-		}	
+		//if (lastFocusedElement) {
+			//lastFocusedElement.focus();
+		//}	
 		
 	});
 

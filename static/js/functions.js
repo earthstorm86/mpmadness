@@ -36,11 +36,6 @@ function initializeEventListeners() {
 	$("#substyleOptions").click(openSubsubjectsPanel);
 	$("#reorderByWeight").click(sortSubsubjectsByWeight);
 	$("#delete-all-saved-data").on("click", deleteAllSavedData);
-	/*$("body").on("input", ".sub-subject-w", function() {
-	  const id = $(this).attr('id');
-	  const weightValueId = id.replace('-w', '-value');
-	//  $(`#${weightValueId}`).text($(this).val());
-	});*/
 	$("body").on("input", ".sub-subject-w", function() {
 	  updateWeightPercentages();
 	});
@@ -48,7 +43,7 @@ function initializeEventListeners() {
 
 
     // Update word count and result on input or keyup
-    $("body").on("input keyup", "#subject, #negative, #aspect-ratio, .sub-subject, .sub-subject-w, .disable-sub-subject", updateWordCountAndResult);
+    $("body").on("input keyup", "#subject, #negative, #aspect-ratio, #stylize, #include-imagine, .sub-subject, .sub-subject-w, .disable-sub-subject", updateWordCountAndResult);
 }
 
 function processFormData(event) {

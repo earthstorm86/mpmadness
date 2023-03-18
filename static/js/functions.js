@@ -15,7 +15,9 @@ $(document).ready(function() {
 	// Event listeners
 	initializeEventListeners();
 	initializeUI();
-	addSubsubject("in style of monet","1");
+	if(subsubjectCount==0){
+		addSubsubject("in style of monet","1");
+	}
 	updateWordCountAndResult();
 });
 
@@ -55,6 +57,7 @@ function initializeEventListeners() {
     // Update word count and result on input or keyup
     $("body").on("input keyup", "#subject, #negative, #aspect-ratio, #stylize, #include-imagine, .sub-subject, .sub-subject-w, .disable-sub-subject", updateWordCountAndResult);
 }
+
 
 function processFormData(event) {
     event.preventDefault();
@@ -243,9 +246,16 @@ function addSubsubject(text = '', weight = '1') {
 function updateSavedSettingsList(savedData) {
     let selectElement = $("#saved-settings");
     selectElement.empty();
-    for (let settingName in savedData) {
+	
+	let reversedSettingNames = Object.keys(savedData).reverse();
+
+    // Iterate through the reversed keys array
+    reversedSettingNames.forEach(settingName => {
         selectElement.append(`<option value="${settingName}">${settingName}</option>`);
-    }
+    });
+	
+        let firstOptionValue = selectElement.find("option:first").val();
+        selectElement.val(firstOptionValue);
 }
 
 // Updated saveToLocalStorage function
@@ -303,6 +313,7 @@ function loadLastSavedSession() {
 function loadFromLocalStorage() {
     let savedData = JSON.parse(localStorage.getItem('savedData')) || {};
     let settingName = $("#saved-settings").val();
+	let savedSettingsDropdown = $("#saved-settings");
     if (settingName && savedData[settingName]) {
         let formData = savedData[settingName];
         $("#subject").val(formData.subject);
@@ -315,6 +326,7 @@ function loadFromLocalStorage() {
             addSubsubject(subsubject.text, subsubject.weight);
         });
         updateWordCountAndResult();
+		savedSettingsDropdown.val(settingName);
     } else {
         alert('No saved data found in local storage for the selected setting.');
     }

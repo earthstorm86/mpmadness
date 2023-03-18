@@ -23,21 +23,48 @@
 </script>
 
 <body>
-    <h1>Bearden.Art - Midjourney Multiprompt Madness</h1>
-    <form id="text-form">
+    <h1>Bearden.Art - Multiprompt Madness</h1>
+	<center><h2>Designed for MidJourney</h2></center>
+	    <div id="copyFloat"><button type="button" id="copy">Copy prompt result</button></div>
+    <button id="open-settings">General settings</button>
+	<div id="settings-panel">
+	  <h2>Settings</h2>
+	  <form id="settings-form">
+		<fieldset>
+		  <legend>MidJourney Output</legend>
+		  <label for="include-imagine">Include discord "/imagine prompt":</label>
+		  <input type="checkbox" id="include-imagine" name="include-imagine"><br>
+		  <label for="show-result-textbox">Show result text box:</label>
+		  <input type="checkbox" id="show-result-textbox" name="show-result-textbox">
+		</fieldset>
+		<button type="submit">Save</button>	 
+	  </form><button id="close-settings">Close</button>
+	</div>
+	<div id="subsubjects-panel" class="panel">
+		<h3>Saved sub-styles</h3>
+		<p>Select the substyles you would like to add. Save styles to add more options to this list. </p>
+		<div id="subsubjects-list"></div>
+		<div id="buttonHolder"><button id="confirm-subsubjects" type="button">Confirm</button><button id="cancel-subsubjects" type="button">Cancel</button></div>
+	</div>
+	
+	
+	<form id="text-form">
         <label for="subject">Primary Subject/Style:</label>
-        <input type="text" name="subject" id="subject" required><br>
+        <input type="text" name="subject" id="subject" value="A ferocious bear"><br>
 
 
 
 <br>
 
         <div id="subsubjects">
-            <label>Sub-styles</label><span>- Incorporate styles/themes or subject matter which can be adjusted using weightings to manipulate your primary subject and style</span><br>
+            <label>Sub-styles</label><span><br>Incorporate styles/themes or subject matter which can be adjusted using weightings to manipulate your primary subject and style</span><br>
         </div>
-		<button type="button" id="add-subsubject">Add substyle</button><br>
-		<br>
-		<label for="negative">Exclude:</label>
+		<div id="error-message" class="error-message"><span >One or more of your sub-styles exceeds 60 characters. The end of this prompt will be truncated and the end of it ignored by MidJourney.<br>It's recommended that you reduce your sub-style to 60 words or less.<br> </span></div>
+		<button type="button" id="add-subsubject">Add style</button> <button type="substyleOptions" id="substyleOptions">View styles</button>
+		<button type="button" id="saveAs">Save style</button>
+		<button type="button" id="reorderByWeight">Reorder by weights</button>
+		<br><br>
+		<label for="negative" id="negative">Exclude:</label>
         <input type="text" name="negative" id="negative"><br>
 		<label for="aspect-ratio">Aspect ratio:</label>
 		<select name="aspect-ratio" id="aspect-ratio">
@@ -67,19 +94,21 @@
 		
     </form>
 
-
+	<div id="result-text-box">
     <h2>Result:</h2>
     <textarea id="result" readonly></textarea></br>
-    <button type="button" id="copy">Copy to clipboard</button>
+	</div>
+
 	
 	<hr>
 	<label for="saved-settings">Saved settings:</label>
 <select id="saved-settings"></select>
-<button type="button" id="saveAs">Save As</button>
 <button type="button" id="load">Load</button>
-<button type="button" id="delete">Delete</button>
-</br></br>
-<button id="save-json">Save All Sessions as JSON</button>
+<br><br>
+<button type="button" id="delete">Delete selected</button>
+<button id="delete-all-saved-data" type="button">Delete all</button> <button id="save-json">Save All Sessions as JSON</button>
+</br></br><hr>
+
 
 <p>Warning: This is just a quick prototype for myself to tinker with, don't expect updates, bug fixes or your prompt settings to always work.</br>All prompts / settings are storied locally in your browser cache - so if you clear your browsing history fully they will be removed. They are not saved to an external database.</p>
 <p><a href="https://www.instagram.com/Bearden.Art" target="_blank">Bearden.Art</a></p>

@@ -8,7 +8,12 @@ body {
     color: #333;
     line-height: 1.6;
     margin: 0;
-    padding: 2rem;
+    padding-left: 2rem;
+	padding-right: 2rem;
+	padding-top: 1rem;
+	padding-bottom: 2rem;
+	
+	
 	font-size:0.9rem;
 }
 
@@ -26,31 +31,130 @@ h1 {
     margin-bottom: 1rem;
 }
 
+h2{
+	font-size:1.1rem;
+}
+
 button {
-    background-color: #f57c00;
+    background-color: #000;
     border: none;
     color: white;
     padding: 0.5rem;
     cursor: pointer;
     font-size: 0.9rem;
+	border-radius: 6px;
+}
+button.remove-subsubject{
+    background-color: #ffb8ae;
+	border: none;
+    cursor: pointer;
+    padding: 0;
+	margin-top: 8px;
+    margin-left: 10px;
+    position: absolute;
+	
+}
+button.remove-subsubject svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+    stroke: #000; /* Change the color of the icon */
 }
 
 button:hover {
-    background-color: #ff9800;
+    background-color: #26a69a;
 }
 
 input[type=checkbox]{
-	    font-size: 0.9rem;
+	font-size: 0.9rem;
     padding: 0.45rem;
     margin: 0.25rem;
-	width:10px;	
+	width:12px;	
+	zoom:200%;
+	margin-top: 4px;
+    position: absolute;
+	margin-right: 5px;
 }
+
+label[for^="sub-subjectweight-"] {
+    margin-right: -3rem;
+	display:none;
+}
+
+input.sub-subject-w[type=range] {
+    width: 150px;
+}
+
+label[for^="sub-subject-"] {
+    margin-left: 40px;
+	margin-right: -5rem
+
+}
+
+label[for^="disable-sub-subject"] {
+    display:none;
+}
+button#add-subsubject, button#substyleOptions{
+	margin-top:10px;
+	display: inline-block;
+}
+#negative{
+	clear:both;
+}
+
+#subsubjects-list{
+	padding-bottom: 60px;
+	padding-left:20px;
+	padding-right: 20px;
+}
+
+#subsubjects-list input[type=checkbox] {
+	zoom: 120%;
+}
+#subsubjects-list label{
+	font-weight:normal;
+	margin-right: 20px;
+	padding-bottom:10px;
+	overflow-y: auto;
+}
+
+#subsubjects-panel h3, #subsubjects-panel p{
+	margin-left:20px;
+	margin-right:20px;
+}
+
+#subsubjects-panel input[type=checkbox] {
+	margin-top:1px;
+	zoom:150%;
+}
+
+#settings-form input[type=checkbox] {
+	margin-top:1px;
+	zoom:150%;
+}
+
+#subsubjects-panel #buttonHolder{
+	position: sticky;
+    bottom: 0px;
+    width: 100%;
+    display: block;
+    height: auto;
+    background-color: #ff9800;
+    padding: 10px;
+}
+#subsubjects-panel #buttonHolder button{
+    padding: 14px;
+	margin-right:20px;
+}
+
+
 
 input[type=text], select {
     font-size: 0.9rem;
     padding: 0.45rem;
     margin: 0.25rem;
 	min-width:50%;	
+	padding-right:5.65rem
 }
 
 input.sub-subject-w{
@@ -60,6 +164,25 @@ input.sub-subject-w{
 	width:50px;	
 }
 
+.warning {
+    border: 1px solid red;
+    background-color: #ffe6e6; /* Light red background */
+}
+
+
+.error-message {
+	color: #000;
+	font-size: 0.8em;
+	margin-top: 5px;
+	display: none;
+	background-color:#ffe6e6;
+	padding:10px;
+	font-size:0.9rem;
+	margin-bottom: 10px;
+	border: 1px solid red;
+}
+
+
 textarea{
 	width:100%;
 	height: 100px;
@@ -68,6 +191,9 @@ textarea{
 label {
     font-weight: bold;
     margin-right: 0.5rem;
+
+	min-width: 100px;
+    display: inline-block;
 }
 
 .flex-container {
@@ -84,20 +210,158 @@ label {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+#result{
+	width:60%;
+	height: 250px;
+
+}
+
+
+/* Flyout settings panel */
+#settings-panel {
+position: fixed;
+    right: 0;
+    top: 0;
+    padding: 20px;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    background-color: #f5f5f5;
+    box-shadow: 1px 4px 19px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+#settings-panel.open {
+  transform: translateX(0);
+}
+
+#settings-panel button {
+  margin-top: 10px;
+}
+
+
+#settings-panel label[for^="sub-subject-"] {
+    margin-left: 28px;
+	margin-right: -5.55rem
+
+}
+
+.panel {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+	width: 100%;
+    height: 100%;
+    background-color: white;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.panel.open {
+    display: block;
+}
+
+
+button#open-settings{
+	position: absolute;
+	top: 10px;
+	right:10px;
+	float:right;
+	background-color: #ff9800	;
+	top: -6px;
+}
+
+button#open-settings:hover{
+	background-color: #000	;
+	top: -4px;
+}
+
+#copyFloat{
+    width: 25%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 20px;
+	
+    background-color: #000;
+    position: relative;
+    border: 4px solid #009688;
+    padding: 0px;
+	text-align: center;
+}
+#copyFloat button{
+	border-radius:0px;
+	width:100%;
+	background-color:#009688;
+	font-weight:bold;
+}
+#copyFloat button:hover{
+	background-color:#ff9800;
+}
+
+@media (min-width: 512px) {
+    .flex-container > div {
+        flex: 0 0 calc(70% - 1rem);
+    }
+}
+
+@media (min-width: 0px) {
+	input[type=text], select{
+		max-width: 20%;
+	}
+	#result{
+		width:100%;
+	}
+	input[type=checkbox] {
+		zoom:100%;
+		margin-top: 15px;
+		margin-right:5px;
+}
+	label[for^="sub-subject-"]{
+		margin-right: -7rem;
+	}
+}
+
+
 @media (min-width: 768px) {
     .flex-container > div {
         flex: 0 0 calc(50% - 1rem);
     }
+	input[type=text], select{
+		max-width: 39%;
+	}
+	input[type=checkbox] {
+		zoom:150%;
+		margin-top: 8px;
+	}
+	
+	label[for^="sub-subject-"]{
+		margin-right: -5rem;
+	}
+	#result{
+		width:80%;
+	}
 }
 
 @media (min-width: 992px) {
     .flex-container > div {
         flex: 0 0 calc(33.333% - 1rem);
     }
+	input[type=text], select{
+		max-width: 60%;
+	}
+	#result{
+		width:60%;
+	}
 }
 
 .word-count {
     color: #00695c;
+	margin-left:-5.25rem;
+	position:absolute;
+	margin-top: 18px;
 }
 
 .textarea-container {
@@ -111,7 +375,7 @@ label {
 }
 
 #save-json {
-    background-color: #009688;
+    background-color: #000;
 }
 
 #save-json:hover {

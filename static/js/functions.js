@@ -172,7 +172,7 @@ function renumberSubsubjectLabels() {
         let newIndex = index + 1;
         $(element).attr("id", `weight-value-${newIndex}`);
     });
-	
+	updateWeightPercentages();
 	
 }
 

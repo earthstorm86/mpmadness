@@ -298,8 +298,28 @@ button#open-settings:hover{
 	font-weight:bold;
 }
 #copyFloat button:hover{
-	background-color:#ff9800;
+	background-color:#000000;
 }
+
+.flash {
+  animation: flash 0.2s ease-in-out;
+}
+
+
+
+@keyframes flash {
+  0%, 100% {
+    background-color: #000000; /* original button color */
+    opacity: 1;
+  }
+  50% {
+    background-color: #009688; /* flash color */
+    opacity: 0.5;
+  }
+}
+
+
+
 
 @media (min-width: 512px) {
     .flex-container > div {

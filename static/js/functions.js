@@ -39,6 +39,16 @@ function initializeEventListeners() {
 	$("body").on("input", ".sub-subject-w", function() {
 	  updateWeightPercentages();
 	});
+	$('#copy').on('click', function () {
+	  const btn = $(this);
+	  btn.addClass('flash');
+
+	  // Remove the flash class after the animation is done to reset the button
+	  setTimeout(() => {
+		btn.removeClass('flash');
+	  }, 200); // same duration as in the CSS animation
+	});
+
 	
 
 

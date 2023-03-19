@@ -38,7 +38,10 @@ function initializeEventListeners() {
 	$("#substyleOptions").click(openSubsubjectsPanel);
 	$("#reorderByWeight").click(sortSubsubjectsByWeight);
 	$("#delete-all-saved-data").on("click", deleteAllSavedData);
-	$("body").on("input", ".sub-subject-w", function() {
+	
+	$(".disable-sub-subject").click(updateWeightPercentages);
+	
+	$("body").on("input", ".sub-subject-w",".disable-sub-subject", function() {
 	  updateWeightPercentages();
 	});
 	$('#copy').on('click', function () {
@@ -561,9 +564,19 @@ function sortSubsubjectsByWeight() {
 
 function updateWeightPercentages() {
   let totalWeight = 0;
-  $(".sub-subject-w").each(function() {
-    totalWeight += parseFloat($(this).val());
+
+  $(".sub-subject-w").each(function(index, element) {
+		const checkbox = $(`#disable-sub-subject-${index + 1}`);
+        const isChecked = checkbox.is(':checked');
+		const weightValue = $(`#weight-value-${index + 1}`);
+		if (isChecked) {
+			weightValue.show();
+		   	totalWeight += parseFloat($(this).val());
+		}else{
+			weightValue.hide();
+		}
   });
+
 
 
   $(".sub-subject-w").each(function() {

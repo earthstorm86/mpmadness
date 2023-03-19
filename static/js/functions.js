@@ -72,7 +72,7 @@ function processFormData(event) {
         stylize: $("#stylize").val(),
         subsubjects: []
     };
-
+	
     $(".sub-subject").each(function(index, element) {
         formData.subsubjects.push({
             text: $(element).val(),
@@ -87,7 +87,6 @@ function processFormData(event) {
     const stylize = formData.stylize;
     const subsubjects = formData.subsubjects;
     const negative_string = formData.negative ? ` --no ${negative}` : "";
-
     let result = [];
     let word_counts = [];
 	let wordCountError = false;
@@ -122,9 +121,9 @@ function processFormData(event) {
 	}
 
     if(getSetting("includeImagine")){
-		$("#result").val("/imagine prompt: "+result.join('\n')+negative_string+"--stylize "+stylize+" --ar "+aspect_ratio);
+		$("#result").val("/imagine prompt: "+result.join('\n')+negative_string+" --stylize "+stylize+" --ar "+aspect_ratio);
 	}else{
-		$("#result").val(result.join('\n')+negative_string+"--stylize "+stylize+" --ar "+aspect_ratio);
+		$("#result").val(result.join('\n')+negative_string+" --stylize "+stylize+" --ar "+aspect_ratio);
 	}
 	
 	
@@ -394,7 +393,7 @@ function processSessionData(sessionData) {
     }
 
     if (negative) {
-        result += `-no ${negative}`;
+        result += `--no ${negative}`;
     }
 
     return {

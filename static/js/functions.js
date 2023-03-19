@@ -182,6 +182,13 @@ function renumberSubsubjectLabels() {
         let newIndex = index + 1;
         $(element).attr("id", `weight-value-${newIndex}`);
     });
+	
+	let subsubjectCheckboxes = $(".disable-sub-subject");
+    subsubjectCheckboxes.each(function(index, element) {
+        let newIndex = index + 1;
+        $(element).attr("id", `disable-sub-subject-${newIndex}`);
+    });	
+	
 	updateWeightPercentages();
 	
 }
@@ -552,6 +559,8 @@ function sortSubsubjectsByWeight() {
     const parent = subsubject.element.parent();
     parent.detach();
     $("#subsubjects").append(parent);
+	const weightValue = $(`#weight-value-${index + 1}`);
+	weightValue.show();
   });
 
   // Renumber subsubject labels
@@ -559,6 +568,7 @@ function sortSubsubjectsByWeight() {
 
   // Update word count and result
   updateWordCountAndResult();
+  	updateWeightPercentages();
 }
 
 function updateWeightPercentages() {

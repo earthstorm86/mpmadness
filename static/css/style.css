@@ -65,6 +65,10 @@ button:hover {
     background-color: #26a69a;
 }
 
+.anchor{
+	text-decoration:none;
+}
+
 input[type=checkbox]{
 	font-size: 0.9rem;
     padding: 0.45rem;

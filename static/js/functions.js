@@ -39,7 +39,9 @@ function initializeEventListeners() {
 	$("#reorderByWeight").click(sortSubsubjectsByWeight);
 	$("#delete-all-saved-data").on("click", deleteAllSavedData);
 	
-	$(".disable-sub-subject").click(updateWeightPercentages);
+	$("body").click(".disable-sub-subject", function() {
+	  updateWeightPercentages();
+	});
 	
 	$("body").on("input", ".sub-subject-w",".disable-sub-subject", function() {
 	  updateWeightPercentages();

@@ -404,8 +404,10 @@ function processSessionData(sessionData) {
     }
 
     return {
-        subject: subject,
-        negative: negative,
+        subsubjects: subsubjects,
+		subject: subject,
+		negative: negative,
+        stylize: stylize,
         aspect_ratio: aspectRatio,
         result: result
     };

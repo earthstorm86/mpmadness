@@ -61,6 +61,21 @@ function initializeEventListeners() {
     $("body").on("input keyup", "#subject, #negative, #aspect-ratio, #stylize, #include-imagine, .sub-subject, .sub-subject-w, .disable-sub-subject", updateWordCountAndResult);
 }
 
+async function loadStaticStyleFiles() {
+  if ($('#saved-styles-library-extras').is(':checked')) {
+	try {
+		const response = await fetch('static/styles/anime-and-tv.json');
+		if (response.ok) {
+		   const styles = await response.json(); 
+			return styles;
+		} else {
+			console.error(`Error loading static style files: ${response.statusText}`);
+		}
+	}catch (error) {
+		console.error(`Error loading static style files: ${error}`);
+	}
+}
+} 
 
 function processFormData(event) {
     event.preventDefault();
@@ -322,6 +337,8 @@ function loadLastSavedSession() {
 function loadFromLocalStorage() {
     let savedData = JSON.parse(localStorage.getItem('savedData')) || {};
     let settingName = $("#saved-settings").val();
+	
+
 	let savedSettingsDropdown = $("#saved-settings");
     if (settingName && savedData[settingName]) {
         let formData = savedData[settingName];
@@ -436,6 +453,8 @@ function saveSettings(event) {
     
 	settings.includeImagine = $("#include-imagine").prop("checked");
 	settings.showResultTextbox = $("#show-result-textbox").prop("checked");
+	settings.showLibraryExtras = $("#saved-styles-library-extras").prop("checked");
+	
     localStorage.setItem("appSettings", JSON.stringify(settings));
 	
     alert("Settings saved to local storage.");
@@ -454,6 +473,11 @@ function loadSettings() {
         $("#include-imagine").prop("checked", settings.includeImagine);
 
     }
+	if (settings && settings.hasOwnProperty("showLibraryExtras")) {
+        $("#saved-styles-library-extras").prop("checked", settings.showLibraryExtras);
+
+    }
+	
 }
 
 function getSetting(settingKey) {
@@ -467,9 +491,6 @@ function getSetting(settingKey) {
         } else {
             return settingValue.toString();
         }
-    } else {
-        console.error(`Setting "${settingKey}" not found.`);
-        return null;
     }
 }
 
@@ -489,24 +510,39 @@ function getSubsubjectsFromSavedSettings() {
 }
 
 
-function openSubsubjectsPanel() {
+
+async function openSubsubjectsPanel() {
     let subsubjects = getSubsubjectsFromSavedSettings();
-    let subsubjectsList = $("#subsubjects-list");
-    subsubjectsList.empty();
+	let subsubjectsList = $("#subsubjects-list");
+	subsubjectsList.empty();
+	let uniqueSubsubjects = new Set();
+	let combinedSubsubjects = new Set();
 
-	const uniqueSubsubjects = new Set();
+// Combine user subsubjects and static styles, sort them alphabetically
+	if(getSetting('showLibraryExtras')){
+		let staticStyles = await loadStaticStyleFiles();
+		combinedSubsubjects = subsubjects.concat(staticStyles);
+	}else{
+		combinedSubsubjects = subsubjects;
+	}
+	combinedSubsubjects.sort((a, b) => a.text.localeCompare(b.text));
+	
 
-	subsubjects.forEach((subsubject, index) => {
-		if (!uniqueSubsubjects.has(subsubject.text)) {
-			uniqueSubsubjects.add(subsubject.text);
-			subsubjectsList.append(`
-				<div>
-					<input type="checkbox" id="sub-subject-option-${index}" class="sub-subject-option" data-text="${subsubject.text}" data-weight="${subsubject.weight}">
-					<label for="sub-subject-option-${index}">${subsubject.text}</label>
-				</div>
-			`);
-		}
-	});
+
+
+  // Clear and repopulate the subsubjects list
+  combinedSubsubjects.forEach((subsubject, index) => {
+	  if (!uniqueSubsubjects.has(subsubject.text)) {
+		uniqueSubsubjects.add(subsubject.text);
+		subsubjectsList.append(`
+		  <div>
+			<input type="checkbox" id="sub-subject-option-${index}" class="sub-subject-option" data-text="${subsubject.text}" data-weight="${subsubject.weight}">
+			<label for="sub-subject-option-${index}">${subsubject.text}</label>
+		  </div>
+		`);
+	  }
+  });
+
 
     $("#subsubjects-panel").addClass("open");
 
@@ -522,6 +558,9 @@ function openSubsubjectsPanel() {
         $("#subsubjects-panel").removeClass("open");
     });
 }
+
+
+	
 
 function deleteAllSavedData() {
     const confirmation = confirm("Are you sure you want to delete all saved session data? This action cannot be undone.");
@@ -596,4 +635,8 @@ function updateWeightPercentages() {
 	const percentage = (parseFloat($(this).val()) / totalWeight) * 100;
     $(`#${weightValueId}`).text(percentage.toFixed(0) + "%");
   });
+  
+  
+
+  
 }

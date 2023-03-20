@@ -329,11 +329,15 @@ button#open-settings:hover{
     .flex-container > div {
         flex: 0 0 calc(70% - 1rem);
     }
+	.word-count{
+		display:none;
+	}
+
 }
 
 @media (min-width: 0px) {
 	input[type=text], select{
-		max-width: 20%;
+		max-width: 87%;
 	}
 	#result{
 		width:100%;
@@ -346,6 +350,9 @@ button#open-settings:hover{
 	label[for^="sub-subject-"]{
 		margin-right: -7rem;
 	}
+}
+.word-count{
+	display:none;
 }
 
 
@@ -367,6 +374,10 @@ button#open-settings:hover{
 	#result{
 		width:80%;
 	}
+	
+	.word-count{
+		display:inline-block;
+	}
 }
 
 @media (min-width: 992px) {
@@ -386,6 +397,7 @@ button#open-settings:hover{
 	margin-left:-5.25rem;
 	position:absolute;
 	margin-top: 18px;
+	display:inline-block;
 }
 
 .textarea-container {

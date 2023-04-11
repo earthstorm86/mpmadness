@@ -60,7 +60,7 @@ function initializeEventListeners() {
 
 
     // Update word count and result on input or keyup
-    $("body").on("input keyup", "#subject, #negative, #aspect-ratio, #stylize, #include-imagine, .sub-subject, .sub-subject-w, .disable-sub-subject", updateWordCountAndResult);
+    $("body").on("input keyup", "#subject, #negative, #aspect-ratio, #model, #stylize, #include-imagine, .sub-subject, .sub-subject-w, .disable-sub-subject", updateWordCountAndResult);
 }
 
 async function loadStaticStyleFiles() {
@@ -87,6 +87,7 @@ function processFormData(event) {
         negative: $("#negative").val(),
         aspect_ratio: $("#aspect-ratio").val(),
         stylize: $("#stylize").val(),
+		model: $("#model").val(),
         subsubjects: []
     };
 	
@@ -102,6 +103,7 @@ function processFormData(event) {
     const negative = formData.negative;
     const aspect_ratio = formData.aspect_ratio;
     const stylize = formData.stylize;
+	const model = formData.model;
     const subsubjects = formData.subsubjects;
     const negative_string = formData.negative ? ` --no ${negative}` : "";
     let result = [];
@@ -138,9 +140,9 @@ function processFormData(event) {
 	}
 
     if(getSetting("includeImagine")){
-		$("#result").val("/imagine prompt: "+result.join('\n')+negative_string+" --stylize "+stylize+" --ar "+aspect_ratio);
+		$("#result").val("/imagine prompt: "+result.join('\n')+negative_string+" --stylize "+stylize+" --ar "+aspect_ratio+" "+model);
 	}else{
-		$("#result").val(result.join('\n')+negative_string+" --stylize "+stylize+" --ar "+aspect_ratio);
+		$("#result").val(result.join('\n')+negative_string+" --stylize "+stylize+" --ar "+aspect_ratio+" "+model);
 	}
 	
 	
@@ -291,6 +293,7 @@ function saveToLocalStorage() {
         negative: $("#negative").val(),
         aspect_ratio: $("#aspect-ratio").val(),
         stylize: $("#stylize").val(),
+		model: $("#model").val(),
         subsubjects: []
     };
     $(".sub-subject").each(function(index, element) {
@@ -324,6 +327,7 @@ function loadLastSavedSession() {
         $("#negative").val(formData.negative);
         $("#aspect-ratio").val(formData.aspect_ratio);
         $("#stylize").val(formData.stylize);
+		$("#model").val(formData.model);
         $("#subsubjects").val(formData.subsubjects);
         subsubjectCount = 0;
         formData.subsubjects.forEach(function(subsubject) {
@@ -348,6 +352,7 @@ function loadFromLocalStorage() {
         $("#negative").val(formData.negative);
         $("#aspect-ratio").val(formData.aspect_ratio);
         $("#stylize").val(formData.stylize);
+		$("#model").val(formData.model);
         $("#subsubjects").empty();
         subsubjectCount = 0;
         formData.subsubjects.forEach(function(subsubject) {

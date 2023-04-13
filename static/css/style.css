@@ -30,7 +30,9 @@ h1 {
     color: #333;
     margin-bottom: 1rem;
 }
-
+#saved-settings{
+	display:block;
+}
 h2{
 	font-size:1.1rem;
 }
@@ -43,6 +45,8 @@ button {
     cursor: pointer;
     font-size: 0.9rem;
 	border-radius: 6px;
+	margin-right: 5px;
+	margin-bottom: 5px;
 }
 button.remove-subsubject{
     background-color: #ffb8ae;
@@ -101,7 +105,9 @@ label[for^="disable-sub-subject"] {
 button#add-subsubject, button#substyleOptions{
 	margin-top:10px;
 	display: inline-block;
+
 }
+
 #negative{
 	clear:both;
 }
@@ -190,6 +196,8 @@ input.sub-subject-w{
 textarea{
 	width:100%;
 	height: 100px;
+	font-family: inherit;
+	padding:10px;
 }
 
 label {
@@ -284,14 +292,11 @@ button#open-settings:hover{
 }
 
 #copyFloat{
-    width: 25%;
+    width: 50%;
 	margin-left:auto;
 	margin-right:auto;
 	margin-bottom: 20px;
-	
-    background-color: #000;
     position: relative;
-    border: 4px solid #009688;
     padding: 0px;
 	text-align: center;
 }
@@ -332,12 +337,16 @@ button#open-settings:hover{
 	.word-count{
 		display:none;
 	}
+	input[type=text], select{
+		min-width: 50%;
+	}
 
 }
 
 @media (min-width: 0px) {
 	input[type=text], select{
 		max-width: 87%;
+		padding-right:0;
 	}
 	#result{
 		width:100%;
@@ -346,11 +355,9 @@ button#open-settings:hover{
 		zoom:100%;
 		margin-top: 15px;
 		margin-right:5px;
-}
-	label[for^="sub-subject-"]{
-		margin-right: -7rem;
 	}
 }
+
 .word-count{
 	display:none;
 }
@@ -397,7 +404,6 @@ button#open-settings:hover{
 	margin-left:-5.25rem;
 	position:absolute;
 	margin-top: 18px;
-	display:inline-block;
 }
 
 .textarea-container {

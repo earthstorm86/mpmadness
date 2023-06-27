@@ -69,7 +69,7 @@
         <input type="text" name="negative" id="negative"><br>
 		<label for="aspect-ratio">Aspect ratio:</label>
 		<select name="aspect-ratio" id="aspect-ratio">
-            <option value="4:5">4:5</option>
+            <option value="4:5" selected>4:5</option>
             <option value="1:1">1:1</option>
             <option value="2:3">2:3</option>
             <option value="3:2">3:2</option>
@@ -86,7 +86,7 @@
 			<option value="400">400</option>
 			<option value="300">300</option>
 			<option value="200">200</option>
-			<option value="100">100</option>
+			<option value="100" selected>100</option>
 			<option value="0">0</option>
         </select><br>
 		<label for="model">Model:</label>
@@ -94,8 +94,9 @@
             <option value="--niji 5 --style scenic">Niji Scenic</option>
 			<option value="--niji 5 --style expressive">Niji Expressive</option>
 			<option value="--niji 5 --style cute">Niji Cute</option>
-			<option value="--niji 5">Niji Standard</option>
-            <option value="--v 5.1">MJ (latest)</option>
+			<option value="--niji 5">Niji 5</option>
+			<option value="--niji">Niji (default)</option>
+            <option value="" selected>MJ (default)</option>
         </select><br>
 		
 		<!--<button type="submit">Submit (Auto submit enabled)</button>-->
